@@ -1,0 +1,329 @@
+
+前面的简单工厂模式。之所以叫简单因为相对于工厂模式来说优点太简单了。哈哈哈哈哈哈哈哈哈。
+其实本质上就是多了一层抽象的工厂，唔，也并没有想象的难，哈哈哈哈
+
+1、试画出简单工厂模式的模式结构图，并对模式进行分析
+
+（1）简单工厂模式的模式结构图如下：
+
+（2）模式分析：
+角色1:IOS国际标准组织
+作用：为所有手机制订一套统一的标准（比如5G标准），是一个抽象产品类，定义好use方法，等待被实现。
+代码：Phone.java
+package HomeWork4;
+
+public interface Phone {
+    public void use();
+}
+角色2:华为技术有限公司
+作用：设计华为手机，并且让华为的手机拥有给特朗普打电话的功能，是一个产品类，实现了Phone这个接口
+	*（另外，我重写了他自己的构造方法（这样可以观察到不同方法的执行顺序））
+代码：HuaWei.java
+
+package HomeWork4;
+
+public class HuaWei implements Phone {
+    @Override
+    public void use() {
+        System.out.println("使用华为手机给特朗普打电话");
+    }
+
+    public HuaWei() {
+        System.out.println("设计华为手机");
+    }
+}
+角色3:小米科技有限公司
+作用：设计小米手机，并且让小米的手机拥有看蔡徐坤打篮球的功能，是一个产品类，实现了Phone这个接口
+	*（另外，我重写了他自己的构造方法（这样可以观察到不同方法的执行顺序））
+代码：XiaoMi.java
+
+package HomeWork4;
+
+public class XiaoMi implements Phone {
+    @Override
+    public void use() {
+        System.out.println("使用为发烧而生的小米10Pro手机看蔡徐坤打篮球");
+    }
+
+    public XiaoMi() {
+        System.out.println("设计小米手机");
+    }
+}
+
+
+角色4:OPPO科技有限公司
+作用：设计OPPO手机，并让OPPO的手机拥有充电一小时通话五分钟的功能，是一个产品类，实现了Phone这个接口
+	*（另外，我重写了他自己的构造方法（这样可以观察到不同方法的执行顺序））
+代码：OPPO.java
+
+package HomeWork4;
+
+public class OPPO implements Phone {
+    @Override
+    public void use() {
+        System.out.println("使用OPPO Find2 充电一小时 通话5分钟");
+    }
+
+    public OPPO() {
+        System.out.println("设计OPPO手机");
+    }
+}
+
+
+角色5:富士康科技集团
+作用：是一个工厂类，根据订单要求brand代工生产不同的手机，并可由测试类调用
+代码:PhoneFactory.java
+
+package HomeWork4;
+
+public class PhoneFactory {
+    public static Phone getPhone(String brand){
+        Phone phone=null;
+        if (brand.equalsIgnoreCase("HuaWei")){
+            phone=new HuaWei();
+            System.out.println("富士康开始给华为手机生产手机了。");
+        }
+        else if (brand.equalsIgnoreCase("OPPO")){
+            phone=new OPPO();
+            System.out.println("富士康开始给OPPO手机生产手机了。");
+        }
+        else if (brand.equalsIgnoreCase("XiaoMi")){
+            phone=new XiaoMi();
+            System.out.println("富士康开始给XiaoMi手机生产手机了。");
+        }
+        return phone;
+    }
+}
+
+角色6:手机消费者
+作用：选择一款手机下订单，是一个测试类 可以调用PhoneFactory这个工厂类得到想要的手机并实现其功能。
+代码：TestOfDifferentBrandPhone.java
+package HomeWork4;
+
+import java.util.Scanner;
+
+public class TestOfDifferentBrandPhone {
+    public static void main(String[] args) {
+        System.out.println("请从HuaWei，XiaoMi，OPPO，VIVO中选一个输入");
+        Scanner scanner = new Scanner(system.in - 这个网站可出售。 - 最佳的System 来源和相关信息。);
+        Phone phone;
+        phone=PhoneFactory.getPhone(scanner.nextLine());
+        phone.use();
+    }
+}‹
+
+
+本质上 简单工厂模式是把创建对象和使用对象分离
+*****************************************************************************************
+2、试画出工厂方法模式的模式结构图，并对模式进行分析。
+（1）工厂模式的模式结构图如下：
+
+
+
+（2）模式分析：
+
+角色1:手机国际标准组织
+作用：为所有手机制订一套统一的标准（比如5G标准），是一个抽象产品类，定义好use方法，等待被实现。
+代码：Phone.java
+
+public interface Phone {
+    public void use();
+}
+
+角色2:华为技术有限公司
+作用：设计华为手机，并且让华为的手机拥有给特朗普打电话的功能，是一个产品类，实现了Phone这个接口
+	*（另外，我重写了他自己的构造方法（这样可以观察到不同方法的执行顺序））
+代码：HuaWei.java
+
+public class HuaWei implements Phone {
+    @Override
+    public void use() {
+        System.out.println("使用华为手机给特朗普打电话");
+    }
+
+    public HuaWei() {
+        System.out.println("设计华为手机");
+    }
+}
+
+
+角色3:小米科技有限公司
+作用：设计小米手机，并且让小米的手机拥有看蔡徐坤打篮球的功能，是一个产品类，实现了Phone这个接口
+	*（另外，我重写了他自己的构造方法（这样可以观察到不同方法的执行顺序））
+代码：XiaoMi.java
+
+public class XiaoMi implements Phone {
+    @Override
+    public void use() {
+        System.out.println("使用为发烧而生的小米10Pro手机看蔡徐坤打篮球");
+    }
+
+    public XiaoMi() {
+        System.out.println("设计小米手机");
+    }
+}
+
+
+角色4:OPPO科技有限公司
+作用：设计OPPO手机，并让OPPO的手机拥有充电一小时通话五分钟的功能，是一个产品类，实现了Phone这个接口
+	*（另外，我重写了他自己的构造方法（这样可以观察到不同方法的执行顺序））
+代码：OPPO.java
+
+
+public class OPPO implements Phone {
+    @Override
+    public void use() {
+        System.out.println("使用OPPO Find2 充电一小时 通话5分钟");
+    }
+
+    public OPPO() {
+        System.out.println("设计OPPO手机");
+    }
+}
+
+
+角色5:手机工厂国际标准组织
+作用：是抽象工厂类,声明了工厂方法(createPhone),用于返回一个产品Phone，所有创建对象的工厂类都必须实现该接口。
+代码:PhoneFactory.java
+
+public interface PhoneFactory {
+    public Phone createPhone();
+}
+
+角色6:华为手机生产工厂
+作用：生产HuaWei手机,它是抽象工厂类PhoneFactory的子类,实现了抽象工厂中定义的createPhone方法,并可由Test调用,返回一个具体产品类HuaWei的实例。
+代码:HuaWeiFactory.java
+
+public class HuaWeiFactory implements PhoneFactory {
+    @Override
+    public Phone createPhone() {
+        Phone phone=new HuaWei();
+        System.out.println("华为自己的工厂在生成华为手机啦~~~");
+        return phone;
+    }
+}
+
+角色7:OPPO手机生产工厂
+作用：生产OPPO手机,它是抽象工厂类PhoneFactory的子类,实现了抽象工厂中定义的createPhone方法,并可由Test调用,返回一个具体产品类OPPO的实例。
+代码:OPPOFactory.java
+
+public class OPPOFactory implements PhoneFactory {
+    @Override
+    public Phone createPhone() {
+        Phone phone=new OPPO();
+        System.out.println("OPPO自己的工厂在生成华为手机啦~~~");
+        return phone;
+    }
+}
+
+角色8:XiaoMi手机生产工厂
+作用：生产XiaoMi手机,它是抽象工厂类PhoneFactory的子类,实现了抽象工厂中定义的createPhone方法,并可由Test调用,返回一个具体产品类XiaoMi的实例。
+代码:XiaoMiFactory.java
+
+public class XiaoMiFactory implements PhoneFactory {
+    @Override
+    public Phone createPhone() {
+        Phone phone=new XiaoMi();
+        System.out.println("XiaoMi自己的工厂在生成华为手机啦~~~");
+        return phone;
+    }
+}
+
+角色9:手机消费者
+作用：是一个测试类,选择一款手机下订单，可以调用PhoneFactory这个工厂类得到想要的手机并实现其功能。
+代码：Test.java
+
+public class Test {
+    public static void main(String[] args) {
+        Phone phone;
+        PhoneFactory phoneFactory;
+        phoneFactory=(PhoneFactory)XMLUtil.getBean();
+        phone=phoneFactory.createPhone();
+        phone.use();
+    }
+}
+*****************************************************************************************
+3、现需要设计一个程序来读取多种不同类型的图片格式，针对每一种图片格式都设计个图片读取器( ImageReader)，如GIF图片读取器( GifReader)用于读取GIF格式的图片、JPG图片读取器( Jpgreader)用于读取JPG格式的图片。图片读取器对象通过图片读取器工厂ImageReaderFactory来创建，ImageReaderFactory是一个抽象类，用于创建图片读取器的工厂方法，其子类 GifReaderFactory和  JpgReaderFactory用于创建具体的图片读取器对象。使用工厂方法模式实现该程序的设计。
+（1）工厂模式的模式结构图如下：
+
+
+（2）模式分析：
+角色1:图片读取器国际标准组织
+作用：为所有图片读取器制订一套统一的标准，是一个抽象产品类，定义好read方法，等待被实现。
+代码：ImageReader.java
+
+public interface ImageReader {
+    public void read();
+}
+
+角色2:Gif读取器
+作用：是一个具体产品类，用来读取Gif图片，实现了ImageReader这个接口
+代码：GifReader.java
+
+public class GifReader implements ImageReader {
+    @Override
+    public void read() {
+        System.out.println("~ Read Gif image ~");
+    }
+}
+
+角色3:JPG读取器
+作用：是一个具体产品类，用来读取JPG图片，实现了ImageReader这个接口
+代码：JPGReader.java
+
+public class JPGReader implements ImageReader {
+    @Override
+    public void read() {
+        System.out.println("- read JPG image -");
+    }
+}
+
+角色4:图片读取器工厂国际标准组织
+作用：为所有图片读取器工厂制订一套统一的标准，是一个抽象工厂类，定义好createImageReader方法，等待被实现。
+代码：ImageReaderFactory.java
+
+public interface ImageReaderFactory {
+    public ImageReader createImageReader();
+}
+
+角色5:JPG图片读取器工厂
+作用：生产JPG图片读取器，是它是抽象工厂类ImageReaderFactory的子类,实现了抽象工厂中定义的createImageReader方法,并可由Test调用,返回一个具体产品类JPGReader的实例。
+代码：JPGFactory.java
+
+public class JPGFactory implements ImageReaderFactory {
+    @Override
+    public ImageReader createImageReader() {
+        ImageReader reader = new JPGReader();
+        System.out.println("- JPG 工厂正在生产 JPGReader -");
+        return reader;
+    }
+}
+
+角色6:Gif图片读取器工厂
+作用：生产Gif图片读取器，是它是抽象工厂类ImageReaderFactory的子类,实现了抽象工厂中定义的createImageReader方法,并可由Test调用,返回一个具体产品类GifReader的实例。
+代码：GifFactory.java
+
+public class GifFactory implements ImageReaderFactory {
+    @Override
+    public ImageReader createImageReader() {
+        ImageReader reader = new GifReader();
+        System.out.println("~ Gif 工厂正在生产 GifReader ~");
+        return reader;
+    }
+}
+
+
+角色9:图片读取使用者
+作用：是一个测试类,选择一款图片读取器使用，可以调用ImageReaderFactory这个工厂类得到想要的手机并实现其功能。
+代码：Test.java
+
+public class Test {
+    public static void main(String[] args) {
+        ImageReader imageReader;
+        ImageReaderFactory imageReaderFactory;
+        imageReaderFactory=(ImageReaderFactory)XMLUtil.getBean();
+        imageReader=imageReaderFactory.createImageReader();
+        imageReader.read();
+    }
+
+
